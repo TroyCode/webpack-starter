@@ -2,8 +2,10 @@
   "name": "webpack-starter",
   "private": true,
   "scripts": {
-    "start": "webpack --config webpack.config.js",
-    "build": "webpack"
+    "start": "webpack-dev-server --open",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "server": "node server.js"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -22,6 +24,7 @@
     "stylelint-scss": "^3.4.0",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10",
     "webpack-manifest-plugin": "^2.0.4"
   },
   "dependencies": {
