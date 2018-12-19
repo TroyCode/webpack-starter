@@ -1,5 +1,6 @@
 {
   "name": "webpack-starter",
+  "sideEffects": false,
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open",
