@@ -7,6 +7,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 module.exports = {
   entry: {
     app: './src/scripts/index.js',
+    another: './src/scripts/another-module.js',
   },
   plugins: [
     new ManifestPlugin(),
@@ -19,4 +20,9 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
-}
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
+};
