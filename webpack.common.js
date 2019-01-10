@@ -12,27 +12,37 @@ module.exports = {
   plugins: [
     new ManifestPlugin(),
     new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Caching',
-    }),
+    // new HtmlWebpackPlugin({
+    //   title: 'Caching',
+    // }),
     // new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
   ],
   output: {
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
+    filename: 'webpack-numbers.[contenthash].js',
+    // chunkFilename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
+    library: 'webpackNumbers',
+    libraryTarget: 'umd',
   },
-  optimization: {
-    runtimeChunk: 'single',
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-      },
+  // optimization: {
+  //   runtimeChunk: 'single',
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name: 'vendors',
+  //         chunks: 'all',
+  //       },
+  //     },
+  //   },
+  // },
+  externals: {
+    lodash: {
+      commonjs: 'lodash',
+      commonjs2: 'lodash',
+      amd: 'lodash',
+      root: '_',
     },
   },
 };
