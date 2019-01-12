@@ -8,41 +8,43 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/scripts/index.js',
+    polyfills: './src/scripts/polyfills.js',
   },
   plugins: [
     new ManifestPlugin(),
     new CleanWebpackPlugin(['dist']),
-    // new HtmlWebpackPlugin({
-    //   title: 'Caching',
-    // }),
+    new HtmlWebpackPlugin({
+      title: 'Shimming',
+    }),
     // new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
+    new webpack.ProvidePlugin({
+      join: ['lodash', 'join'],
+    }),
   ],
-  output: {
-    filename: 'webpack-numbers.[contenthash].js',
-    // chunkFilename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'webpackNumbers',
-    libraryTarget: 'umd',
+  module: {
+    rules: [
+      {
+        test: require.resolve('./src/scripts/globals.js'),
+        use: 'exports-loader?file,parse=helpers.parse',
+      },
+    ],
   },
-  // optimization: {
-  //   runtimeChunk: 'single',
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       vendor: {
-  //         test: /[\\/]node_modules[\\/]/,
-  //         name: 'vendors',
-  //         chunks: 'all',
-  //       },
-  //     },
-  //   },
-  // },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_',
+  output: {
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
+    path: path.resolve(__dirname, 'dist'),
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+      },
     },
   },
 };
