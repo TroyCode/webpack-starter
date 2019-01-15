@@ -8,7 +8,6 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/scripts/index.js',
-    polyfills: './src/scripts/polyfills.js',
   },
   plugins: [
     new ManifestPlugin(),
@@ -19,14 +18,12 @@ module.exports = {
     // new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.ProvidePlugin({
-      join: ['lodash', 'join'],
+      _: 'lodash',
     }),
   ],
   module: {
     rules: [
       {
-        test: require.resolve('./src/scripts/globals.js'),
-        use: 'exports-loader?file,parse=helpers.parse',
       },
     ],
   },

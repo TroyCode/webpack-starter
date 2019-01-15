@@ -1,11 +1,7 @@
-import { file, parse } from './globals';
-
 function component() {
-  parse();
-  console.log(file)
   const element = document.createElement('div');
 
-  element.innerHTML = join(['Hello', 'webpack'], ' ');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
   return element;
 }
