@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const webpack = require('webpack');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -13,12 +14,18 @@ module.exports = {
     new ManifestPlugin(),
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Shimming',
+      title: 'Progressive Web Application',
     }),
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     new webpack.ProvidePlugin({
       _: 'lodash',
+    }),
+    new WorkboxPlugin.GenerateSW({
+      // these options encourage the ServiceWorkers to get in there fast
+      // and not allow any straggling "old" SWs to hang around
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   module: {
